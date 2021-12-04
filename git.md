@@ -16,6 +16,7 @@ date: MMMM DD, YYYY
 - Linux/Unix Command Line
 - Cách khởi tạo một Git repository
 - Cách tạo commit
+- Cách xem nội dung một commit
 - Cách tạo một remote repository với GitHub, GitLab, Bitbucket
 - Cách đồng bộ giữa local và remote repository
 - Cách chia sẽ repository của mình với người khác
@@ -133,6 +134,13 @@ git --version
 - `git reset`
 - `git checkout <path>`
 - `git clean -df`
+
+---
+
+### Xem nội dung một commit
+
+- Những thay đổi trong một commit
+- `git show <commit_hash>`
 
 ---
 
@@ -262,7 +270,7 @@ Lý do dùng Git GUI:
 - Cách thay đổi lịch sử của nhánh
 - Đụng độ là gì
 - Cách xử lý khi xảy ra đụng độ
-- Giới thiệu về Git Flow
+- Giới thiệu về GitHub Flow
 - Pull Request là gì
 - Review và merge Pull Request
 - CI/CD với GitHub Actions
@@ -271,6 +279,12 @@ Lý do dùng Git GUI:
 ---
 
 ### Mô hình làm việc nhóm phân tán
+
+- Các thành viên làm việc độc lập
+- Không cần kết nối tới server để có thể xem lịch sử hoặc tạo commit
+- Có thể chia nhiều nhánh để phát triển nhiều tính năng cùng lúc
+- Có thể merge nhiều nhánh lại với nhau sau khi hoàn thành
+- Có thể khôi phục remote server từ local repository
 
 ---
 
@@ -299,19 +313,44 @@ Lý do dùng Git GUI:
 - Commit vào nhánh
 - Push/Pull nhánh
 
-> [Dùng lệnh switch/restore thay cho checkout](https://github.blog/2019-08-16-highlights-from-git-2-23)
-
 > https://onlywei.github.io/explain-git-with-d3/#branch
 
 ---
 
+### `git checkout` vs `git switch/restore`
+
+| git checkout                         | Trỏ HEAD đến   | Tác động đến file   | git switch/restore                        |
+| ------------------------------------ | -------------- | ------------------- | ----------------------------------------- |
+| `git checkout <file_path>`           | Không đổi      | Trong `<file_path>` | `git restore <file_path>`                 |
+| `git checkout -- <file_path>`        | Không đổi      | Trong `<file_path>` | `git restore <file_path>`                 |
+| `git checkout <tree> <file_path>`    | Không đổi      | Trong `<file_path>` | `git restore --source <tree> <file_path>` |
+| `git checkout <tree> -- <file_path>` | Không đổi      | Trong `<file_path>` | `git restore --source <tree> <file_path>` |
+| `git checkout <branch>`              | `<branch>`     | Tất cả              | `git switch <branch>`                     |
+| `git checkout <commit>`              | `<commit>`     | Tất cả              | `git switch --detach <commit>`            |
+| `git checkout --detach <commit>`     | `<commit>`     | Tất cả              | `git switch --detach <commit>`            |
+
+> [Dùng lệnh switch/restore thay cho checkout](https://github.blog/2019-08-16-highlights-from-git-2-23)
+
+---
+
 ### Merge nhánh
+
+- Merge `<branch>` vào nhánh hiện tại `git merge <branch>`
+- Tạo một *merge commit* trên nhánh hiện tại
+- Có thể merge cùng lúc nhiều nhánh
+- Có khả năng xảy ra đụng độ (conflict)
+- `git merge (--continue | --abort)`
 
 > https://onlywei.github.io/explain-git-with-d3/#merge
 
 ---
 
 ### Rebase nhánh
+
+- Dùng `<branch>` làm **new base** cho nhánh hiện tại `git rebase <branch>`
+- Tạo ra commit mới cho những commit phía sau commit cuối cùng của nhánh base
+- Có khả năng xảy ra đụng độ
+- `git rebase (--continue | --abort)`
 
 > https://onlywei.github.io/explain-git-with-d3/#rebase
 
@@ -332,6 +371,8 @@ Lý do dùng Git GUI:
 
 - Revert commit thường
 - Revert merge commit (có nhiều hơn 1 cha)
+- Tạo ra một commit mới có nội dung ngược lại với commit cần revert
+- Cách làm này của Git rất an toàn
 
 > https://onlywei.github.io/explain-git-with-d3/#revert
 
@@ -349,12 +390,26 @@ Lý do dùng Git GUI:
 
 - Xem thay đổi
 - Merge code
-- Đánh dấu đã giải quyết xong
-- Tiếp tục quá trình merge
+- Đánh dấu đã giải quyết xong với `git add`
+- Tiếp tục quá trình merge/rebase (`--continue`)
 
 ---
 
-### Giới thiệu về Git Flow
+### Giới thiệu về GitHub Flow
+
+- Lightweight
+- Dựa trên nhánh
+
+Tóm tắt flow:
+
+1. Tạo nhánh (feature, bugfix...)
+2. Tạo thay đổi trên nhánh (1 hoặc nhiều commit)
+3. Tạo pull request
+4. Xử lý bình luận từ những thành viên khác
+5. Merge pull request
+6. Xoá nhánh
+
+> https://docs.github.com/en/get-started/quickstart/github-flow
 
 ---
 
@@ -369,14 +424,14 @@ Lý do dùng Git GUI:
 
 > Mặc định Git sẽ không stash untracked và ignored file. Có thể dùng [tuỳ chọn](https://www.atlassian.com/git/tutorials/saving-changes/git-stash#stashing-untracked-or-ignored) nếu cần.
 
-> Cách khác là cứ commit lại trước, sau đó quay lại làm tiếp và commit nối vào với `git commit --amend`.
+> Cách khác là cứ commit lại trước (WIP), sau đó quay lại làm tiếp và commit nối vào với `git commit --amend`.
 
 ---
 
 ### Pull Request là gì
 
 - Là khái niệm của Git provider (không phải của Git)
-- Dùng để thông báo người khác những thay đổi mà bạn tạo ra
+- Dùng để thông báo với thành viên khác những thay đổi mà bạn tạo ra
 - Sau khi PR được mở, các thành viên có thể review và thảo luận ngay trên PR
 - Tác giả có thể có những follow-up commit
 - Sau khi được chấp thuận bởi các thành viên thì PR có thể được merge vào nhánh chính
@@ -391,6 +446,15 @@ Lý do dùng Git GUI:
 
 ### CI/CD với GitHub Actions
 
+- Giúp tự động hoá quy trình làm việc
+- Build, test và deloy
+- Thực hành tạo một workflow đơn giản
+
+> https://docs.github.com/en/actions
+
 ---
 
 ### Thực hành làm việc nhóm với Git
+
+- Một nhóm 2 thành viên
+- Mô tả chi tiết [tại đây](#)

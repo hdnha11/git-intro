@@ -107,7 +107,14 @@ git --version
 - Staging area (Index)
 - Thêm file vào index với `git add`
 
-![Vòng đời của trạng thái file](https://git-scm.com/book/en/v2/images/lifecycle.png)
+![Vòng đời của trạng thái file](./images/lifecycle.png)
+
+![Tóm tắt Git](./images/git-101.png)
+
+Nguồn ảnh:
+
+- https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
+- https://medium.com/happyfresh-fleet-tracker/git-101-pushing-pulling-etc-67ea989f74e0
 
 ---
 

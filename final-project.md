@@ -296,7 +296,7 @@ git add .
 git status
 git commit -m 'Tom Update Cấu hình Git'
 git log
-git push origin -u feature/task-2-tom
+git push origin -u feature/task-3-tom
 ```
 
 - Tạo pull request trên GitHub và chờ Jerry review
@@ -360,7 +360,7 @@ git add .
 git status
 git commit -m 'Jerry Update Cấu hình Git'
 git log
-git push origin -u feature/task-2-jerry
+git push origin -u feature/task-3-jerry
 ```
 
 - Tạo pull request trên GitHub và chờ Tom review

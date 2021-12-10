@@ -6,6 +6,18 @@ Sau khi làm hết các nhiệm vụ hai bạn sẽ đổi vai cho nhau và th�
 
 Kết quả cuối cùng sẽ giống như repo mẫu này: https://github.com/hdnha11/git-cheatsheet.
 
+- [Thực hành làm việc nhóm với Git](#thực-hành-làm-việc-nhóm-với-git)
+	- [Nhiệm vụ 1](#nhiệm-vụ-1)
+		- [Tom](#tom)
+		- [Jerry](#jerry)
+	- [Nhiệm vụ 2](#nhiệm-vụ-2)
+		- [Tom](#tom-1)
+		- [Jerry](#jerry-1)
+	- [Nhiệm vụ 3](#nhiệm-vụ-3)
+		- [Tom](#tom-2)
+		- [Jerry](#jerry-2)
+	- [Nhiệm vụ 4](#nhiệm-vụ-4)
+
 ## Nhiệm vụ 1
 
 - Khởi tạo repository

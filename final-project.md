@@ -178,6 +178,8 @@ Chúc mừng Tom đã hoàn thành nhiệm vụ số 2.
 
 ### Jerry
 
+- Tạo nhánh feature
+
 ```bash
 git checkout -b feature/task-2-jerry
 git log
@@ -257,3 +259,167 @@ git log
 Dùng text editor để mở file `README.md` bạn sẽ thấy file mới đã bao gồm cả 2 phần thay đổi của cả 2 bạn Tom & Jerry.
 
 Chúc mừng Jerry đã hoàn thành nhiệm vụ số 2.
+
+## Nhiệm vụ 3
+
+- Giải quyết đụng độ (conflict)
+
+### Tom
+
+- Tạo nhánh feature
+
+```bash
+git checkout -b feature/task-3-tom
+```
+
+- Thêm nội dung cho các phần
+	- Cấu hình Git
+
+Dùng text editor mở file `README.md` và update nội dung như phần bên dưới và lưu lại.
+
+```markdown
+## Cấu hình Git
+
+| Lệnh                                       | Mô tả                                                        |
+|--------------------------------------------|--------------------------------------------------------------|
+| `git config --global user.name <name>`     | Đặt tên tác giả cho tất cả commit của user hiện tại.         |
+| `git config --global user.email <email>`   | Đặt email tác giả cho tất cả commit của user hiện tại.       |
+```
+
+- Commit và push
+
+```bash
+git diff
+git add .
+git status
+git commit -m 'Tom Update Cấu hình Git'
+git log
+git push origin -u feature/task-2-tom
+```
+
+- Tạo pull request trên GitHub và chờ Jerry review
+- Review và approve pull request của Jerry
+
+Sau khi Jerry merge pull request của bạn ấy thì Tom không thể merge pull request của mình vì đã xảy ra conflict.
+
+- Xử lý đụng độ
+
+```bash
+git fetch
+git rebase origin master
+# Git sẽ thông báo danh sách các file đang bị conflict
+# Mở text editor và xử lý tất cả conflict (merge code với nhau)
+# Sau khi xử lý tất cả conflict nhớ add file vào index (staging area)
+git add .
+git rebase --continue
+git push -f # Force push bởi vì chúng ta đã thay đổi lịch sử của nhánh
+```
+
+- Quay lại GitHub để review lại PR
+- Merge PR
+- Chuyển về nhánh `main` và pull code mới về
+
+```bash
+git checkout main
+git pull
+git log
+```
+
+Chúc mừng Tom đã thực hiện xong nhiệm vụ 3.
+
+### Jerry
+
+- Tạo nhánh feature
+
+```bash
+git checkout -b feature/task-3-jerry
+```
+
+- Thêm nội dung cho các phần
+	- Cấu hình Git
+
+Dùng text editor mở file `README.md` và update nội dung như phần bên dưới và lưu lại.
+
+```markdown
+## Cấu hình Git
+
+| Lệnh                                       | Mô tả                                                        |
+|--------------------------------------------|--------------------------------------------------------------|
+| `git config --system core.editor <editor>` | Đặt text editor mong muốn (mặc định là Vim) cho tất cả user. |
+```
+
+- Commit và push
+
+```bash
+git diff
+git add .
+git status
+git commit -m 'Jerry Update Cấu hình Git'
+git log
+git push origin -u feature/task-2-jerry
+```
+
+- Tạo pull request trên GitHub và chờ Tom review
+- Merge PR sau khi Tom approve
+- Review và approve pull request của Tom
+- Chuyển về nhánh `main` và pull code mới về
+
+```bash
+git checkout main
+git pull
+git log
+```
+
+Chúc mừng Jerry đã thực hiện xong nhiệm vụ 3.
+
+## Nhiệm vụ 4
+
+- Hoàn thành dự án
+
+Ở nhiệm vụ này 2 bạn Tom & Jerry tự do trao đổi và phân công phần công việc còn lại để hoàn thành dự án.
+
+```markdown
+## Git Log
+
+| Lệnh                           | Mô tả                                      |
+|--------------------------------|--------------------------------------------|
+| `git log --stat`               | Hiện thị thêm thông tin file được sửa đổi. |
+| `git log --author="<pattern>"` | Lọc commit theo tác giả.                   |
+| `git log --grep="<pattern>"`   | Lọc commit theo commit message.            |
+| `git log <since>..<until>`     | Hiện thị commit trong khoảng.              |
+| `git log -- <file>`            | Hiện thị commit của một file cụ thể.       |
+| `git log --graph`              | Hiện thị lịch sử dưới dạng đồ thị.         |
+
+## Git Diff
+
+| Lệnh                | Mô tả                                           |
+|---------------------|-------------------------------------------------|
+| `git diff HEAD`     | So sánh working directory với commit cuối cùng. |
+| `git diff --cached` | So sánh index với commit cuối cùng.             |
+
+## Git Reset
+
+| Lệnh               | Mô tả                                                                              |
+|--------------------|------------------------------------------------------------------------------------|
+| `git reset`        | Reset khu vực index (staging area) giống với commit gần nhất.                      |
+| `git reset --hard` | Reset khu vực index (staging area) và working directory giống với commit gần nhất. |
+
+## Git Rebase
+
+| Lệnh                   | Mô tả                                                                  |
+|------------------------|------------------------------------------------------------------------|
+| `git rebase -i <base>` | Rebase với chế độ "tương tác", Git sẽ mở editor cho chúng ta thao tác. |
+
+## Git Pull
+
+| Lệnh                         | Mô tả                                 |
+|------------------------------|---------------------------------------|
+| `git pull --rebase <remote>` | Pull với chế độ rebase thay vì merge. |
+
+## Git Push
+
+| Lệnh                        | Mô tả                                                 |
+|-----------------------------|-------------------------------------------------------|
+| `git push <remote> --force` | Force push, sẽ ghi đè nhánh remote. Cẩn thận khi làm. |
+| `git push <remote> --tags`  | Push local tag lên remote.                            |
+```

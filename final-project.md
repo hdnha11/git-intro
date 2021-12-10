@@ -308,9 +308,17 @@ Sau khi Jerry merge pull request của bạn ấy thì Tom không thể merge pu
 
 ```bash
 git fetch
-git rebase origin master
-# Git sẽ thông báo danh sách các file đang bị conflict
-# Mở text editor và xử lý tất cả conflict (merge code với nhau)
+git rebase origin/main
+# Git sẽ thông báo danh sách các file đang bị conflict:
+#   Auto-merging README.md
+#   CONFLICT (content): Merge conflict in README.md
+#   error: could not apply fc18839... Tom Update Cấu hình Git
+#   hint: Resolve all conflicts manually, mark them as resolved with
+#   hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+#   hint: You can instead skip this commit: run "git rebase --skip".
+#   hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+# Mở text editor và xử lý tất cả conflict (merge code với nhau) (ở đây là file README.md)
+# Ở đây do mình muốn giử lại cả phần của Tom và Jerry nên chỉ đơn giản là xoá 3 dòng bắt đầu với (<<<<<<<, =======, >>>>>>>) đi là được
 # Sau khi xử lý tất cả conflict nhớ add file vào index (staging area)
 git add .
 git rebase --continue

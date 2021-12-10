@@ -269,6 +269,8 @@ Chúc mừng Jerry đã hoàn thành nhiệm vụ số 2.
 - Tạo nhánh feature
 
 ```bash
+git checkout main
+git pull
 git checkout -b feature/task-3-tom
 ```
 
@@ -332,6 +334,8 @@ Chúc mừng Tom đã thực hiện xong nhiệm vụ 3.
 - Tạo nhánh feature
 
 ```bash
+git checkout main
+git pull
 git checkout -b feature/task-3-jerry
 ```
 

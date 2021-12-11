@@ -13,6 +13,7 @@ date: MMMM DD, YYYY
 ## Git dành cho người mới bắt đầu
 
 - Giới thiệu về Git
+- GUI vs CLI
 - Linux/Unix Command Line
 - Cách khởi tạo một Git repository
 - Cách tạo commit
@@ -22,7 +23,6 @@ date: MMMM DD, YYYY
 - Cách chia sẽ repository của mình với người khác
 - Cách clone một repository được chia sẽ từ người khác
 - Git GUI
-- GUI vs CLI
 - Thực hành tạo trang GitHub profile cá nhân
 
 ---
@@ -34,6 +34,21 @@ date: MMMM DD, YYYY
 - Hệ thống phân tán
 - Git vs (GitHub, GitLab, Bitbucket)
 - Nhà cung cấp dịch vụ Git
+
+---
+
+### GUI vs CLI
+
+Lý do nên học Git CLI trước:
+
+- Giống nhau ở mọi nơi
+- Đầy đủ tính năng
+- Dễ dàng tìm kiếm sự trợ giúp
+
+Lý do dùng Git GUI:
+
+- Xem lịch sử dễ dàng hơn
+- Xem nội dung thay đổi (side-by-side)
 
 ---
 
@@ -98,6 +113,17 @@ git --version
 
 ---
 
+### Cấu hình Git
+
+- User name `git config user.name "Nha Hoang"`
+- User email `git config user.email "hdnha11@gmail.com"`
+- `cat ./.git/config`
+
+> Global config `git config --global user.email "hdnha11@gmail.com"`
+> `cat ~/.gitconfig`
+
+---
+
 ### Thêm file vào Git
 
 - Xem trạng thái của repository `git status`
@@ -107,9 +133,13 @@ git --version
 - Staging area (Index)
 - Thêm file vào index với `git add`
 
+#### Vòng đời của trạng thái file
+
 ![Vòng đời của trạng thái file](./images/lifecycle.png)
 
-![Tóm tắt Git](./images/git-101.png)
+#### Khái quát Git
+
+![Khái quát Git](./images/git-101.png)
 
 Nguồn ảnh:
 
@@ -151,14 +181,32 @@ Nguồn ảnh:
 
 ---
 
-### Cấu hình Git
+### Git lưu trữ thông tin như thế nào?
 
-- User name `git config user.name "Nha Hoang"`
-- User email `git config user.email "hdnha11@gmail.com"`
-- `cat ./.git/config`
+- **CHÚ Ý**: Kiến thức nâng cao
+- Object database
+- Object hash
+- Commit, tree, blob
 
-> Global config `git config --global user.email "hdnha11@gmail.com"`
-> `cat ~/.gitconfig`
+Ví dụ một snapshot của file `README.md` bên trong repo `git-intro`:
+
+```bash
+git show c04b8a8
+git cat-file -p c04b8a8
+git cat-file -p af332c6
+git cat-file -p 6788a85
+deflate -f .git/objects/67/88a8515d175478a1ddd01694209ab09a9da19f
+deflate -f .git/objects/67/88a8515d175478a1ddd01694209ab09a9da19f | shasum
+```
+
+> Tool deflate nằm bên trong thư mục git-intro/deflate.
+
+![Git Object Model](./images/git-object-model.png)
+
+Nguồn:
+
+- https://courses.csail.mit.edu/6.S194/13/lessons/03-git/git-internally.html
+- https://craigtaub.dev/under-the-hood-of-git
 
 ---
 
@@ -167,6 +215,35 @@ Nguồn ảnh:
 - [GitHub](https://github.com)
 - [GitLab](https://gitlab.com)
 - [Bitbucket](https://bitbucket.org)
+
+http://git-scm.com/book/en/v2/GitHub-Account-Setup-and-Configuration
+
+---
+
+### Cấu hình SSH
+
+- Secure Shell
+- Thông tin được mã hoá
+- Không cần dùng username/password
+- Tạo một cặp key public-private
+- Thêm public key vào https://github.com/settings/keys
+- Giữ cho private key được an toàn
+
+#### Cách tạo cặp key
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+cat ~/.ssh/id_ed25519.pub
+```
+
+> https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+#### Kiểm tra cấu hình SSH
+
+```bash
+ssh -T git@github.com
+# Hi <your_github_account>! You've successfully authenticated, but GitHub does not provide shell access.
+```
 
 ---
 
@@ -204,25 +281,6 @@ git push
 
 ---
 
-### Cấu hình SSH
-
-- Secure Shell
-- Thông tin được mã hoá
-- Không cần dùng username/password
-- Tạo một cặp key public-private
-- Thêm public key vào https://github.com/settings/keys
-- Giữ cho private key được an toàn
-
-#### Cách tạo cặp key
-
-```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
-```
-
-> https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-
----
-
 ### Quy trình làm việc điển hình
 
 1. Khởi tạo hoặc clone repository
@@ -240,21 +298,6 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 - Visual Studio Code (integrated SCM)
 
 > SCM: Source Control Management
-
----
-
-### GUI vs CLI
-
-Lý do nên học Git CLI trước:
-
-- Giống nhau ở mọi nơi
-- Đầy đủ tính năng
-- Dễ dàng tìm kiếm sự trợ giúp
-
-Lý do dùng Git GUI:
-
-- Xem lịch sử dễ dàng hơn
-- Xem nội dung thay đổi (side-by-side)
 
 ---
 
@@ -465,3 +508,9 @@ Tóm tắt flow:
 
 - Một nhóm 2 thành viên
 - Mô tả chi tiết [tại đây](#)
+
+## Tài liệu tham khảo
+
+- http://git-scm.com/book/en/v2
+- https://www.atlassian.com/git/tutorials
+- https://shop.jcoglan.com/building-git/

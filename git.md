@@ -466,6 +466,17 @@ git merge new_branch_to_merge_later
 - Đánh dấu đã giải quyết xong với `git add`
 - Tiếp tục quá trình merge/rebase (`--continue`)
 
+#### Text Editor mặc định của Git
+
+- Mặc định là Vim
+- Có thể chuyển sang editor quen thuộc
+
+```bash
+git config --global core.editor "nano"
+```
+
+> https://stackoverflow.com/a/2596835
+
 ---
 
 ### Giới thiệu về GitHub Flow

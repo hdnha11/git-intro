@@ -283,11 +283,11 @@ git push
 
 ### Quy trình làm việc điển hình
 
-1. Khởi tạo hoặc clone repository
-2. Thêm file mới hoặc chỉnh sửa file cũ
-3. Thêm file vào index
-4. Tạo commit
-5. Push
+1. Khởi tạo hoặc clone repository (`git init` or `git clone <url>`)
+2. Thêm file mới hoặc chỉnh sửa file cũ (Text Editor)
+3. Thêm file vào index (`git add <file list>`)
+4. Tạo commit (`git commit -m "message"`)
+5. Push (`git push`)
 6. Lặp lại bước 2
 
 ---
@@ -433,6 +433,29 @@ git push
 - Merge/Rebase nhánh
 - Cùng sửa trên cùng dòng của cùng file
 - Sửa trên file đã bị xoá
+
+```bash
+# Init
+mkdir git-merge-test
+cd git-merge-test
+git init .
+echo "this is some content to mess with" > merge.txt
+git add merge.txt
+git commit -m "we are commiting the inital content"
+# Create new branch and add a new commit
+git checkout -b new_branch_to_merge_later
+echo "totally different content to merge later" > merge.txt
+git commit -am "edited the content of merge.txt to cause a conflict"
+# Back to master and add one more commit
+git checkout master
+echo "content to append" >> merge.txt # append to file
+git commit -am "appended content to merge.txt"
+# Merge new_branch_to_merge_later to master
+git merge new_branch_to_merge_later
+# BOOM 💥. A conflict appears
+```
+
+> https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts
 
 ---
 
